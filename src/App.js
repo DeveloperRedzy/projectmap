@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useMemo } from 'react';
+import { useRoutes } from 'react-router-dom';
+import { ThemeProvider } from '@mui/system';
+import { useDispatch } from 'react-redux';
+import routes from './routes';
+import createTheme from './themes';
+import { THEMES } from './constants/themes';
+import { supabase } from './api/supabaseClient';
+import { setSession } from './redux/slices/authSlice';
 
 function App() {
+  const content = useRoutes(routes);
+  const theme = useMemo(() => createTheme(THEMES.DEFAULT), []);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      dispatch(setSession(session));
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      dispatch(setSession(session));
+    });
+
+    return () => subscription.unsubscribe();
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      {content}
+    </ThemeProvider>
   );
 }
 

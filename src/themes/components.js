@@ -3,6 +3,16 @@ const components = {
     defaultProps: {
       disableRipple: true,
     },
+    // With the ripple disabled, keyboard users still need a visible focus
+    // indicator on every interactive element.
+    styleOverrides: {
+      root: {
+        '&.Mui-focusVisible': {
+          outline: '2px solid #1976D2',
+          outlineOffset: '2px',
+        },
+      },
+    },
   },
   MuiLink: {
     defaultProps: {

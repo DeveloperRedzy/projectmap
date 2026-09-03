@@ -1,0 +1,5 @@
+const DRAWER_WIDTH_OPENED = 240;
+const HEADER_HEIGHT = 64;
+const TRANSITION = '0.4s ease-in-out';
+
+export { DRAWER_WIDTH_OPENED, HEADER_HEIGHT, TRANSITION };
