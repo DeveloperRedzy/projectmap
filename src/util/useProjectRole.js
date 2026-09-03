@@ -15,7 +15,8 @@ import { useMemo } from 'react';
  */
 const useProjectRole = (projectId) => {
   const { authenticated, user } = useSelector((state) => state.auth);
-  const { users, dataStatus } = useSelector((state) => state.projectmap);
+  const users = useSelector((state) => state.projectmap.users);
+  const dataStatus = useSelector((state) => state.projectmap.dataStatus);
 
   return useMemo(() => {
     const isLoading = dataStatus === 'loading' || dataStatus === 'idle';

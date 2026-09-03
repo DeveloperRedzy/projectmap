@@ -23,7 +23,7 @@ const Overview = ({ projectId, fixed }) => {
   const { projectId: pid } = useParams();
   const projId = pid || projectId;
   const theme = useTheme();
-  const { projects } = useSelector((state) => state.projectmap);
+  const projects = useSelector((state) => state.projectmap.projects);
   const { data: phases = [] } = usePhases();
   const createPhase = useCreatePhase();
   const projectPhases = phases.filter((phase) => phase.projectId === projId);

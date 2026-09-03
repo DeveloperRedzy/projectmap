@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
  * Listens to Redux state for data errors.
  */
 const GlobalErrorToast = () => {
-  const { dataError } = useSelector((state) => state.projectmap);
+  const dataError = useSelector((state) => state.projectmap.dataError);
   const { error: authError } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');

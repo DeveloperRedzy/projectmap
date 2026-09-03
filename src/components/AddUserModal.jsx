@@ -43,7 +43,7 @@ export const AddUserModal = ({ open, setOpen, pid }) => {
   const { projectId: projId } = useParams();
   const projectId = projId || pid;
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.projectmap);
+  const users = useSelector((state) => state.projectmap.users);
   const { user: currentUser } = useSelector((state) => state.auth);
   const projectUsers = users.filter((u) => u.projectId === projectId);
 

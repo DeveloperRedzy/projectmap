@@ -21,7 +21,8 @@ const ProjectList = () => {
   const dispatch = useDispatch();
   const isLessThanMd = useMediaQuery(theme.breakpoints.down('md'));
 
-  const { projects, alertOpened } = useSelector((state) => state.projectmap);
+  const projects = useSelector((state) => state.projectmap.projects);
+  const alertOpened = useSelector((state) => state.projectmap.alertOpened);
 
   const [isAdding, setIsAdding] = useState(false);
 

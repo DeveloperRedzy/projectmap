@@ -18,7 +18,8 @@ import { useCategories } from '../../queries/useCategories';
 const ProjectListManagerView = ({ filters = {} }) => {
   const theme = useTheme();
   const isLessThanMd = useMediaQuery(theme.breakpoints.down('md'));
-  const { projects, users } = useSelector((state) => state.projectmap);
+  const projects = useSelector((state) => state.projectmap.projects);
+  const users = useSelector((state) => state.projectmap.users);
   const { user } = useSelector((state) => state.auth);
   const { data: phases = [] } = usePhases();
   const { data: categories = [] } = useCategories();

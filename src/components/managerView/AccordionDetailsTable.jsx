@@ -142,7 +142,7 @@ const TaskActionMenu = ({ task }) => {
 
 const AccordionDetailsTable = ({ tableTasks, projectId }) => {
   const theme = useTheme();
-  const { users } = useSelector((state) => state.projectmap);
+  const users = useSelector((state) => state.projectmap.users);
   const { data: categories = [] } = useCategories();
   const { data: phases = [] } = usePhases();
 

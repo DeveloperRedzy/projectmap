@@ -30,7 +30,8 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { projects, drawerOpened } = useSelector((state) => state.projectmap);
+  const projects = useSelector((state) => state.projectmap.projects);
+  const drawerOpened = useSelector((state) => state.projectmap.drawerOpened);
   const openProject = projects.find((project) => project.id === projectId);
   const { isManager } = useProjectRole(projectId);
   const { user } = useSelector((state) => state.auth);
@@ -97,11 +98,7 @@ const NavBar = () => {
         onClose={handleProfileClose}
         isFirstLogin={isFirstLogin}
       />
-      <AppBar
-        position="fixed"
-        open={drawerOpened}
-        sx={{ backgroundColor: 'white' }}
-      >
+      <AppBar position="fixed" sx={{ backgroundColor: 'white' }}>
         <Container sx={{ maxWidth: '1080px' }}>
           <Toolbar variant="dense" sx={{ height: '64px' }}>
             <IconButton

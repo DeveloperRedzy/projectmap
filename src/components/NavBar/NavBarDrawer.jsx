@@ -10,7 +10,6 @@ import {
   IconButton,
   Typography,
   ListItemButton,
-  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import { ChevronLeft } from '@mui/icons-material';
@@ -21,37 +20,31 @@ import useManagesAnyProject from '../../util/useManagesAnyProject';
 
 export default function NavBarDrawer() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();
   const location = useLocation();
-  const { drawerOpened } = useSelector((state) => state.projectmap);
+  const drawerOpened = useSelector((state) => state.projectmap.drawerOpened);
   const { managesAny } = useManagesAnyProject();
 
   const closeDrawer = () => dispatch(setPMDrawerOpened(false));
 
   return (
     <Drawer
-      sx={{
-        width: `${DRAWER_WIDTH_OPENED}px`,
-        flexShrink: 0,
-        // On mobile the drawer is modal and must cover the AppBar (which
-        // sits at theme.zIndex.drawer + 1), so its own header stays visible.
-        zIndex: isMobile ? theme.zIndex.drawer + 2 : undefined,
-        '& .MuiDrawer-paper': {
-          width: `${DRAWER_WIDTH_OPENED}px`,
-          boxSizing: 'border-box',
-          zIndex: isMobile ? 'auto' : 19,
-        },
-      }}
-      // Mobile: overlay with a backdrop (tap outside to close). Desktop: the
-      // classic persistent side panel.
-      variant={isMobile ? 'temporary' : 'persistent'}
+      // Overlay on every screen size: the page content never moves, so
+      // opening the menu costs no layout work and cannot stutter.
+      variant="temporary"
       anchor="left"
       open={drawerOpened}
       onClose={closeDrawer}
       ModalProps={{ keepMounted: true }}
+      sx={{
+        zIndex: theme.zIndex.drawer + 2,
+        '& .MuiDrawer-paper': {
+          width: `${DRAWER_WIDTH_OPENED}px`,
+          boxSizing: 'border-box',
+        },
+      }}
     >
-      <DrawerHeader sx={{ zIndex: 20 }}>
+      <DrawerHeader>
         <Typography
           variant="h5"
           sx={{ flexGrow: 1, pl: 3, color: 'primary.main', fontWeight: 700 }}

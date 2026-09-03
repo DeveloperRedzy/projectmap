@@ -46,7 +46,7 @@ const EditableDate = ({
 }) => {
   const updatePhase = useUpdatePhase();
 
-  const { projects } = useSelector((state) => state.projectmap);
+  const projects = useSelector((state) => state.projectmap.projects);
   const project = projects.find((project) => project.id === projectId);
 
   const handleDateUpdate = (value) => {

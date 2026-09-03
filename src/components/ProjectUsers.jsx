@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 export const ProjectUsers = ({ projectId, setModalOpen, isManager = true }) => {
   const theme = useTheme();
-  const { users } = useSelector((state) => state.projectmap);
+  const users = useSelector((state) => state.projectmap.users);
   const projectUsers = users.filter((user) => user.projectId === projectId);
   return (
     <Box

@@ -16,7 +16,7 @@ import { useAssignTask } from '../queries/useTasks';
 import { getInitials } from '../util/getInitials';
 
 const AssignTaskPicker = ({ taskId, assignedTo, projectId }) => {
-  const { users } = useSelector((state) => state.projectmap);
+  const users = useSelector((state) => state.projectmap.users);
   const assignTask = useAssignTask();
   const projectMembers = users.filter((u) => u.projectId === projectId);
   const assignedUser = assignedTo

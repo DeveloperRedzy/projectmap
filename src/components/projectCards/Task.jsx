@@ -51,7 +51,7 @@ const HoverStack = styled(Stack)`
 export const Task = ({ text, completed, id, categoryId, phaseId, isManager = true, assignedTo }) => {
   const theme = useTheme();
   const { user } = useSelector((state) => state.auth);
-  const { users } = useSelector((state) => state.projectmap);
+  const users = useSelector((state) => state.projectmap.users);
   const toggleTask = useToggleTask();
   const deleteTaskMutation = useDeleteTask();
   const { data: commentCounts = {} } = useCommentCounts();
