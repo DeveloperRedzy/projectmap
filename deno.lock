@@ -1,0 +1,46 @@
+{
+  "version": "5",
+  "specifiers": {
+    "jsr:@std/assert@1": "1.0.19",
+    "jsr:@std/internal@^1.0.12": "1.0.14"
+  },
+  "jsr": {
+    "@std/assert@1.0.19": {
+      "integrity": "eaada96ee120cb980bc47e040f82814d786fe8162ecc53c91d8df60b8755991e",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.14": {
+      "integrity": "291516b3d4c35024d6ffbc0a9df5bf4c64116e05b50012cf846710152d2ffdf7"
+    }
+  },
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@babel/plugin-proposal-private-property-in-object@^7.21.11",
+        "npm:@emotion/styled@^11.11.5",
+        "npm:@mui/icons-material@^5.15.15",
+        "npm:@mui/lab@^5.0.0-alpha.170",
+        "npm:@mui/material@^5.15.15",
+        "npm:@mui/system@^5.15.15",
+        "npm:@mui/x-date-pickers@^5.0.0-alpha.3",
+        "npm:@reduxjs/toolkit@^2.2.3",
+        "npm:@supabase/supabase-js@^2.103.0",
+        "npm:@tanstack/react-query@^5.101.0",
+        "npm:@testing-library/jest-dom@^5.17.0",
+        "npm:@testing-library/react@^13.4.0",
+        "npm:@testing-library/user-event@^13.5.0",
+        "npm:dayjs@^1.11.10",
+        "npm:deepmerge@^4.3.1",
+        "npm:react-dom@^18.2.0",
+        "npm:react-feather@^2.0.10",
+        "npm:react-redux@^9.1.1",
+        "npm:react-router-dom@^6.22.3",
+        "npm:react-scripts@5.0.1",
+        "npm:react-scroll@^1.9.0",
+        "npm:react@^18.2.0"
+      ]
+    }
+  }
+}
