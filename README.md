@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# ProjectMap
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Visual project management for small teams — plan projects as **milestones → outcomes → tasks** on a timeline, collaborate with invited teammates in real time, and track progress on a manager dashboard.
 
-## Available Scripts
+**Live app:** https://projectmap-psi.vercel.app
 
-In the project directory, you can run:
+> Undergraduate final work (thesis) project — Rijad Kuloglija, International Burch University, Department of Information Technology.
 
-### `npm start`
+## Highlights
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Full-stack, no custom server** — React SPA on Vercel talking directly to Supabase (PostgreSQL 17, Auth, Realtime); every read/write is authorized by Row Level Security policies in the database.
+- **Secure invite-only membership** — managers invite teammates by email; invitations are one-time 256-bit tokens (stored only as SHA-256 hashes) delivered by a Deno edge function, expiring in 7 days, revocable and re-sendable.
+- **Realtime collaboration** — task, milestone, and membership changes appear for all project members within about a second, with optimistic updates and rollback on the acting client.
+- **Role-based access** — per-project `manager` / `member` roles enforced in the UI *and* in the database.
+- **Responsive & accessible** — verified at phone and desktop viewports; touch-reachable controls, visible keyboard focus, reduced-motion support.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech stack
 
-### `npm test`
+React 18 · Create React App · MUI 5 · Redux Toolkit (auth, projects, members) · TanStack Query 5 (phases, categories, tasks, profiles) · react-router 6 · Supabase (PostgreSQL, Auth, RLS, Realtime, Edge Functions) · Brevo (transactional email) · Vercel · GitHub Actions CI
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting started
 
-### `npm run build`
+```bash
+cp .env.example .env   # set REACT_APP_SUPABASE_URL and REACT_APP_SUPABASE_ANON_KEY
+npm install
+npm start              # http://localhost:3000
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Other scripts:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm test -- --watchAll=false                            # 58 unit/component tests
+npm run build                                           # production build
+deno test supabase/functions/send-invite/lib.test.ts    # edge-function tests
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Registration is invitation-based: the first account in a fresh database is created in the Supabase dashboard (*Authentication → Add user*, auto-confirmed); everyone else joins via in-app invitations.
 
-### `npm run eject`
+## Repository layout
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+src/            React application (api layer, state, components, pages, tests)
+supabase/       Database schema, RLS policies, RPCs (01…14_*.sql), edge function, SQL tests
+.github/        CI workflow (tests + production build)
+DOCUMENTATION.md  Full technical documentation (architecture, security model, decisions)
+FINALPLAN.md      The phased development plan that drove the build
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Documentation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The complete technical documentation — architecture diagrams, database schema, the RLS security model, the invitation protocol, testing and deployment — lives in [DOCUMENTATION.md](./DOCUMENTATION.md).
